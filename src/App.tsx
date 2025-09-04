@@ -56,7 +56,14 @@ export default function DashboardLayout() {
   );
 }
 
-function SidebarItem({ icon, label, isOpen }) {
+// Fix for SidebarItem props
+interface SidebarItemProps {
+  icon: React.ReactNode;
+  label: string;
+  isOpen: boolean;
+}
+
+function SidebarItem({ icon, label, isOpen }: SidebarItemProps) {
   return (
     <div className="flex items-center gap-3 px-3 py-2 rounded-md cursor-pointer hover:bg-gray-100">
       {icon}
