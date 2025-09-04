@@ -1,7 +1,13 @@
 const express = require("express");
 const { generateDocx } = require("../utils/docxGenerator");
+const cors = require("cors");
 const app = express();
 
+app.use(
+  cors({
+    origin: "http://localhost:5173", // frontend dev server
+  })
+);
 app.use(express.json());
 
 app.get("/health", (req, res) => {
@@ -9,12 +15,10 @@ app.get("/health", (req, res) => {
 });
 
 app.post("/fsr", async (req, res) => {
+  const reportData = req.body;
+  console.log("Data Received:", reportData);
   try {
-    const filePath = await generateDocx({
-      refNo: "DEL/NIA/88888/FSR",
-      date: new Date().toLocaleDateString(),
-      recipient: "The New India Assurance Co. Ltd.",
-    });
+    const filePath = await generateDocx(reportData);
 
     res.download(filePath); // Sends file to browser
   } catch (err) {
