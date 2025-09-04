@@ -4,7 +4,7 @@ const { Document, Packer } = require("docx");
 
 const { header } = require("./header");
 const { footer } = require("./footer");
-const { bodyChildren } = require("./body");
+const { bodyChildren, createBodyChildren } = require("./body");
 
 async function generateDocx(reportData = {}) {
   const doc = new Document({
@@ -25,7 +25,7 @@ async function generateDocx(reportData = {}) {
             },
           },
         },
-        children: bodyChildren,
+        children: createBodyChildren(reportData),
       },
     ],
   });
