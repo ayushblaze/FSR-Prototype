@@ -37,7 +37,7 @@ const ReportForm: React.FC<ReportFormProps> = ({ selectedType }) => {
   }
 
   return (
-    <div className="max-w-4xl p-5 rounded-xl shadow-md border bg-white">
+    <div className="max-w-4xl mx-auto p-3 sm:p-5 rounded-xl shadow-md border bg-white">
       <h2 className="text-xl font-semibold mb-4">{selectedType}</h2>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -46,7 +46,7 @@ const ReportForm: React.FC<ReportFormProps> = ({ selectedType }) => {
             <h3 className="text-lg font-semibold mb-4 text-blue-700">
               Document Header
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 { name: "refNo", label: "Reference Number" },
                 { name: "date", label: "Date" },
@@ -58,7 +58,7 @@ const ReportForm: React.FC<ReportFormProps> = ({ selectedType }) => {
                   control={form.control}
                   name={name}
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
+                    <FormItem className="flex flex-col w-full">
                       <FormLabel className="font-medium text-gray-700">
                         {label}
                       </FormLabel>
@@ -73,7 +73,7 @@ const ReportForm: React.FC<ReportFormProps> = ({ selectedType }) => {
             </div>
 
             {/* Recipient Address */}
-            <div className="mt-4">
+            <div className="mt-4 grid grid-cols-1 gap-4">
               <FormField
                 control={form.control}
                 name="recipientAddress1"
@@ -112,27 +112,29 @@ const ReportForm: React.FC<ReportFormProps> = ({ selectedType }) => {
             <h3 className="text-lg font-semibold mb-4 text-blue-700">
               Policy Type & Number
             </h3>
-            {[
-              { name: "policyType1", label: "Policy Type/No. 1" },
-              { name: "policyType2", label: "Policy Type/No. 2" },
-            ].map(({ name, label }) => (
-              <FormField
-                key={name}
-                control={form.control}
-                name={name}
-                render={({ field }) => (
-                  <FormItem className="mb-3">
-                    <FormLabel className="font-medium text-gray-700">
-                      {label}
-                    </FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { name: "policyType1", label: "Policy Type/No. 1" },
+                { name: "policyType2", label: "Policy Type/No. 2" },
+              ].map(({ name, label }) => (
+                <FormField
+                  key={name}
+                  control={form.control}
+                  name={name}
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col w-full">
+                      <FormLabel className="font-medium text-gray-700">
+                        {label}
+                      </FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              ))}
+            </div>
           </div>
 
           {/* Claim Details Section */}
@@ -140,7 +142,7 @@ const ReportForm: React.FC<ReportFormProps> = ({ selectedType }) => {
             <h3 className="text-lg font-semibold mb-4 text-blue-700">
               Claim Details
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 { name: "insurerClaimNo", label: "Insurer Claim No." },
                 { name: "edmeControlNo", label: "Edme Control No." },
@@ -240,7 +242,7 @@ const ReportForm: React.FC<ReportFormProps> = ({ selectedType }) => {
             </div>
 
             <h4 className="font-medium mb-3">Person Contacted</h4>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               <FormField
                 control={form.control}
                 name="contactPersonTitle"
@@ -309,7 +311,7 @@ const ReportForm: React.FC<ReportFormProps> = ({ selectedType }) => {
             <h3 className="text-lg font-semibold mb-4 text-blue-700">
               Policy Particulars
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 { name: "periodOfInsurance", label: "Period of Insurance" },
                 { name: "insurers", label: "Insurers" },
