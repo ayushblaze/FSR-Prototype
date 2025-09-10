@@ -5,30 +5,42 @@ const { Document, Packer } = require("docx");
 const { header } = require("./header");
 const { footer } = require("./footer");
 const { bodyChildren, createBodyChildren } = require("./body");
+const { continuationHeader } = require("./continuationHeader");
 
 async function generateDocx(reportData = {}) {
-  const doc = new Document({
-    sections: [
-      {
-        headers: { default: header },
-        footers: { default: footer },
-        properties: {
-          page: {
-            margin: {
-              top: 828,
-              bottom: 160,
-              left: 749,
-              right: 749,
+  const refNo = reportData.refNo || " ";
+  const margin = {
+    top: 828,
+    bottom: 160,
+    left: 749,
+    right: 749,
+    header: 560,
+    footer: 216,
+  };
 
-              header: 560, // distance of header from top
-              footer: 216, // distance of footer from bottom
-            },
-          },
-        },
-        children: createBodyChildren(reportData),
-      },
-    ],
+  const sections = [];
+
+  // First page: original header, footer, and body
+  sections.push({
+    headers: { default: header },
+    footers: { default: footer },
+    properties: { page: { margin } },
+    children: createBodyChildren(reportData),
   });
+
+  // Pages 2-5: continuation header, same footer, empty body
+  for (let i = 2; i <= 5; i++) {
+    sections.push({
+      headers: { default: continuationHeader(refNo, i) },
+      footers: { default: footer },
+      properties: { page: { margin } },
+      children: [
+        // Empty body for continuation pages
+      ],
+    });
+  }
+
+  const doc = new Document({ sections });
 
   // Output path
   const outputPath = path.join(
