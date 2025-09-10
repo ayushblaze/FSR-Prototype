@@ -68,4 +68,4 @@ export default tseslint.config([
 ]);
 ```
 
-Made by Spide.devs
+Made by Spide.dev
